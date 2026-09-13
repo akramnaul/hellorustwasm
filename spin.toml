@@ -4,17 +4,22 @@ spin_manifest_version = 2
 [application]
 name = "hellorustwasm"
 version = "0.1.0"
-description = "Hello World Rust WebAssembly application"
 authors = ["Akram Naul"]
+description = "Hello World Rust WebAssembly application"
 
 [[trigger.http]]
 route = "/..."
-component = "hellowasm"
+component = "hellorustwasm"
 
-[component.hellowasm]
-source = "target/wasm32-wasip1/release/hellowasm.wasm"
+[component.hellorustwasm]
+source = "target/wasm32-wasi/release/hellorustwasm.wasm"
+allow_outbound_hosts = []
 
-[component.hellowasm.build]
-command = "cargo build --target wasm32-wasip1 --release"
-watch = ["hellowasm.rs", "Cargo.toml", "spin.toml"]
+[component.hellorustwasm.build]
+command = "cargo build --target wasm32-wasi --release"
+watch = [
+    "src/**/*.rs",
+    "Cargo.toml",
+    "spin.toml"
+]
 ```
