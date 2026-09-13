@@ -12,11 +12,11 @@ route = "/..."
 component = "hellorustwasm"
 
 [component.hellorustwasm]
-source = "target/wasm32-wasi/release/hellorustwasm.wasm"
-allow_outbound_hosts = []
+source = "target/wasm32-wasip2/release/hellorustwasm.wasm"
+allowed_outbound_hosts = []
 
 [component.hellorustwasm.build]
-command = "cargo build --target wasm32-wasi --release"
+command = "cargo build --target wasm32-wasip2 --release"
 watch = [
     "src/**/*.rs",
     "Cargo.toml",
