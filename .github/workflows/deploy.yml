@@ -1,0 +1,39 @@
+```yaml
+name: Build and Deploy Rust WASM
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+
+      - name: Install Spin
+        uses: fermyon/actions/spin@main
+
+      - name: Build WASM application
+        run: |
+          spin build
+
+      - name: Deploy to Fermyon Cloud
+        env:
+          SPIN_AUTH_TOKEN: ${{ secrets.SPIN_AUTH_TOKEN }}
+        run: |
+          spin cloud deploy --build
+```
