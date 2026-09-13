@@ -1,5 +1,5 @@
 ```yaml
-name: Build and Deploy Rust WASM
+name: Deploy Rust WASM to Fermyon Cloud
 
 on:
   push:
@@ -9,13 +9,12 @@ on:
   workflow_dispatch:
 
 jobs:
-
-  build-and-deploy:
-
+  spin:
     runs-on: ubuntu-latest
 
-    steps:
+    name: Build and deploy
 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -25,15 +24,10 @@ jobs:
           targets: wasm32-wasip1
 
       - name: Install Spin
-        uses: fermyon/actions/spin@main
+        uses: fermyon/actions/spin/setup@v1
 
-      - name: Build WASM application
-        run: |
-          spin build
-
-      - name: Deploy to Fermyon Cloud
-        env:
-          SPIN_AUTH_TOKEN: ${{ secrets.SPIN_AUTH_TOKEN }}
-        run: |
-          spin cloud deploy --build
+      - name: Build and deploy to Fermyon Cloud
+        uses: fermyon/actions/spin/deploy@v1
+        with:
+          fermyon_token: ${{ secrets.FERMYON_CLOUD_TOKEN }}
 ```
