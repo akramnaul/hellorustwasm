@@ -1,17 +1,15 @@
 ```toml
 [package]
-name = "hellowasm"
-authors = ["Akram Naul"]
-description = "Hello World Rust WebAssembly application"
+name = "hellorustwasm"
 version = "0.1.0"
 edition = "2021"
+authors = ["Akram Naul"]
+description = "Hello World Rust WebAssembly application"
 
-[workspace]
+[lib]
+crate-type = ["cdylib"]
 
 [dependencies]
 anyhow = "1"
 spin-sdk = "3"
-
-[lib]
-crate-type = ["cdylib"]
 ```
