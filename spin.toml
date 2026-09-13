@@ -1,0 +1,20 @@
+```toml
+spin_manifest_version = 2
+
+[application]
+name = "hellorustwasm"
+version = "0.1.0"
+description = "Hello World Rust WebAssembly application"
+authors = ["Akram Naul"]
+
+[[trigger.http]]
+route = "/..."
+component = "hellowasm"
+
+[component.hellowasm]
+source = "target/wasm32-wasip1/release/hellowasm.wasm"
+
+[component.hellowasm.build]
+command = "cargo build --target wasm32-wasip1 --release"
+watch = ["hellowasm.rs", "Cargo.toml", "spin.toml"]
+```
